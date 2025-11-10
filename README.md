@@ -1,4 +1,4 @@
-Flowbit Backend – Analytics Dashboard API (Assignment Submission)
+Flowbit Backend – Analytics Dashboard API
 
 This repository has the backend portion of the assignment given by Flowbit Private Limited for the Full Stack Developer Internship.
 It includes:
@@ -35,9 +35,9 @@ Folder structure:
 
 flowbit/
  ├── apps/
- │    └── api/           # Express backend
+ │    └── api/           (Express backend)
  ├── packages/
- │    └── db/            # Prisma + database layer
+ │    └── db/            (Prisma + database layer)
  └── data/
       └── Analytics_Test_Data.json
 
@@ -124,7 +124,7 @@ This endpoint forwards the query to Vanna AI (not included in backend-only submi
 
 Backend requires:
 
-DATABASE_URL=<your-neon-postgres-url>
+DATABASE_URL=psql 'postgresql://neondb_owner:npg_xZLHaqNXp36v@ep-hidden-pine-a1lao4th-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
 VANNA_API_BASE_URL=http://localhost:8000 (placeholder)
 
 ✅ How to Run
@@ -143,7 +143,7 @@ Server runs at:
 
 http://localhost:5050/api
 
-✅ Notes for Evaluators
+✅ Notes:
 
 This submission includes only the backend, as per the selected task.
 
