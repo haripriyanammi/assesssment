@@ -1,150 +1,207 @@
-Flowbit Backend – Analytics Dashboard API
 
-This repository has the backend portion of the assignment given by Flowbit Private Limited for the Full Stack Developer Internship.
-It includes:
+1. COMPLETE README DOCUMENTATION 
+# Flowbit Backend – Analytics Dashboard API
 
-✅ PostgreSQL + Prisma database
+This repository contains the backend (Express + TypeScript + Prisma + PostgreSQL) portion of the Flowbit Analytics Dashboard assignment.
 
-✅ Fully normalized schema
+The backend provides all required REST APIs for:
+- Metrics (stats)
+- Invoice trends
+- Vendor spend
+- Category spend
+- Cashflow data
+- Invoices listing with search
+- Chat-with-data backend proxy
 
-✅ Seed script using Analytics_Test_Data.json
+---
 
-✅ REST APIs for all dashboard modules
+## ✅ Tech Stack
 
-✅ Functional Express server
+**Runtime:** Node.js + TypeScript  
+**Framework:** Express.js  
+**Database:** PostgreSQL (Neon)  
+**ORM:** Prisma  
+**Monorepo:** npm workspaces  
+**AI Layer (placeholder):** Vanna API endpoint
 
-✅ Working endpoints for Analytics, Trends, Vendors, Invoices, Category Spend, Cashflow
+---
 
-✅ GitHub-ready monorepo backend structure
+## ✅ Project Structure
 
-Frontend (Next.js) and Vanna AI (Python) are not included in this submission.
 
-✅ Tech Stack (Backend Only)
+/apps
+/api → Backend (Express)
+/packages
+/db → Prisma schema, seed script
+/...
+/data → Analytics_Test_Data.json
 
-Node.js + TypeScript
 
-Express.js
+---
 
-Prisma ORM
+## ✅ Environment Variables
 
-PostgreSQL (Neon Cloud)
+Create `packages/db/prisma/.env` with:
 
-npm workspaces monorepo
 
-Folder structure:
+DATABASE_URL="postgresql://<user>:<password>@<host>/<db>?sslmode=require"
 
-flowbit/
- ├── apps/
- │    └── api/           (Express backend)
- ├── packages/
- │    └── db/            (Prisma + database layer)
- └── data/
-      └── Analytics_Test_Data.json
 
-✅ Database
-Tables Implemented
+Create `apps/api/.env` with:
 
-Vendors
 
-Invoices
+VANNA_API_BASE_URL="http://localhost:8000
+" # or hosted Vanna (not implemented here)
 
-LineItems
 
-Payments
+---
 
-Relationships
+## ✅ Database Schema (Prisma)
 
-Vendor 1 — n Invoices
+Tables created:
 
-Invoice 1 — n Line Items
+- **Vendor**
+- **Invoice**
+- **LineItem**
+- **Payment**
 
-Invoice 1 — n Payments
+The schema is defined in:
 
-✅ Seeding
 
-Run:
 
+packages/db/prisma/schema.prisma
+
+
+---
+
+## ✅ Seeding the Database
+
+The JSON dataset (`Analytics_Test_Data.json`) is located at:
+
+
+
+packages/db/prisma/data/Analytics_Test_Data.json
+
+
+To run the seed:
+
+
+
+cd ~/Documents/flowbit
 npx tsx packages/db/prisma/seed.ts
 
 
-This loads Analytics_Test_Data.json into PostgreSQL (Neon).
+This:
+- Parses the JSON
+- Creates vendor, invoice, line item, payment records
+- Normalizes nested data
 
-✅ Available API Endpoints
-📊 1. Stats
+---
 
-GET /api/stats
+## ✅ Starting the Backend
 
-Returns totals for dashboard cards:
 
-Total Spend
 
-Total Invoices
-
-Documents Uploaded
-
-Average Invoice Value
-
-📈 2. Invoice Trends
-
-GET /api/invoice-trends
-
-Month-wise count + spend.
-
-🏆 3. Top Vendors
-
-GET /api/vendors/top10
-
-Top 10 vendors by total spend.
-
-🧾 4. Invoices
-
-GET /api/invoices
-
-Fetch all invoices (with search).
-
-🧩 5. Category Spend
-
-GET /api/category-spend
-
-Spend aggregated by category.
-
-💵 6. Cashflow
-
-GET /api/cashflow
-
-Grouped payments per date.
-
-🤖 7. Chat With Data (API Ready)
-
-POST /api/chat-with-data
-
-This endpoint forwards the query to Vanna AI (not included in backend-only submission).
-
-✅ Environment Variables
-
-Backend requires:
-
-DATABASE_URL=<your-postgres-url>
-VANNA_API_BASE_URL=http://localhost:8000 (placeholder)
-
-✅ How to Run
-1. Install dependencies
-npm install
-
-2. Generate Prisma Client
-npx prisma generate --schema packages/db/prisma/schema.prisma
-
-3. Start backend
 cd apps/api
 npm run dev
 
 
 Server runs at:
 
-http://localhost:5050/api
 
-✅ Notes:
 
-This submission includes only the backend, as per the selected task.
+http://localhost:5050
 
-All backend endpoints work and have been tested using real database data.
+
+---
+
+## ✅ API Endpoints
+
+### 1. **GET /api/stats**
+Returns totals for dashboard overview cards.
+
+### 2. **GET /api/invoice-trends**
+Returns monthly invoice count + spend.
+
+### 3. **GET /api/vendors/top10**
+Top 10 vendors by total spend.
+
+### 4. **GET /api/category-spend**
+Spend grouped by category.
+
+### 5. **GET /api/cashflow**
+Cash outflow grouped by payment date.
+
+### 6. **GET /api/invoices**
+Returns list of all invoices  
+Supports search:
+
+
+
+/api/invoices?search=Amazon
+
+
+### 7. **POST /api/chat-with-data**
+Forwards natural-language query to Vanna API (placeholder).
+
+---
+
+## ✅ Notes on Chat-With-Data (Vanna)
+
+The backend includes a route:
+
+
+
+POST /api/chat-with-data
+
+
+It forwards NL queries to a Vanna server.
+
+Since this repo focuses on **backend only**, a full Vanna setup is **not implemented**, but the API structure is ready.
+
+---
+
+## ✅ How to Run Entire Project
+
+1. Install dependencies
+
+
+npm install
+
+
+2. Generate Prisma client
+
+
+npx prisma generate --schema packages/db/prisma/schema.prisma
+
+
+3. Seed database
+
+
+npx tsx packages/db/prisma/seed.ts
+
+
+4. Start backend
+
+
+cd apps/api
+npm run dev
+
+
+---
+
+## ✅ Deliverables Completed
+
+- ✅ Backend APIs implemented
+- ✅ PostgreSQL (Neon) connected
+- ✅ Prisma schema + migrations
+- ✅ Seed script for data ingestion
+- ✅ JSON dataset imported
+- ✅ REST endpoints for dashboard + chat
+- ✅ Documentation provided (this file)
+
+---
+
+## ✅ Author
+**Lakshmi Hari Priya Nammi**
+
