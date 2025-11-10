@@ -124,7 +124,7 @@ This endpoint forwards the query to Vanna AI (not included in backend-only submi
 
 Backend requires:
 
-DATABASE_URL=psql 'postgresql://neondb_owner:npg_xZLHaqNXp36v@ep-hidden-pine-a1lao4th-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+DATABASE_URL=<your-postgres-url>
 VANNA_API_BASE_URL=http://localhost:8000 (placeholder)
 
 ✅ How to Run
